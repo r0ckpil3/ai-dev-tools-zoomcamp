@@ -39,7 +39,7 @@ django-todo/
 1. Clone the repository:
    ```bash
    git clone <repository-url>
-   cd django-todo
+   cd 01-todo
    ```
 
 2. Create a virtual environment (recommended):
