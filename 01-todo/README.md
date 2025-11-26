@@ -37,19 +37,34 @@ django-todo/
 ## Installation
 
 1. Clone the repository:
-   ```
+   ```bash
    git clone <repository-url>
    cd django-todo
    ```
 
-2. Create a virtual environment:
-   ```
+2. Create a virtual environment (recommended):
+   ```bash
    python -m venv venv
-   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
    ```
 
-3. Install the required packages:
-   ```
+3. Activate the virtualenv
+
+   - bash / zsh / sh:
+     ```bash
+     source venv/bin/activate
+     ```
+
+   - fish (you can either use the venv python directly, or run under bash):
+     ```fish
+     # Option 1: use python from the venv without activating
+     ./venv/bin/python -m pip install -r requirements.txt
+
+     # Option 2: activate under bash if you prefer activation
+     bash -lc "source venv/bin/activate && pip install -r requirements.txt"
+     ```
+
+4. Install dependencies:
+   ```bash
    pip install -r requirements.txt
    ```
 
@@ -61,15 +76,38 @@ django-todo/
    ```
 
 2. Run the development server:
-   ```
-   python manage.py runserver
+   ```bash
+   # Use the venv python to avoid activation headaches
+   ./venv/bin/python manage.py runserver
    ```
 
-3. Open your browser and go to `http://127.0.0.1:8000/` to view the application.
+3. Open your browser and go to `http://127.0.0.1:8000/` (todo list) or
+   `http://127.0.0.1:8000/home/` (home page).
 
 ## Usage
 
 - You can add new todo items, view existing ones, edit them, and delete them as needed.
+
+## Tests
+
+Run tests with the venv python:
+
+```bash
+./venv/bin/python manage.py test
+```
+
+## Create admin user (non-interactive example)
+
+```bash
+./venv/bin/python manage.py createsuperuser --username admin --email admin@example.com --noinput
+# then set password in a shell (or use a management command) or create interactively
+```
+
+Or create a superuser interactively:
+
+```bash
+./venv/bin/python manage.py createsuperuser
+```
 
 ## Contributing
 
