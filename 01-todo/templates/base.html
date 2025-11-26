@@ -1,0 +1,35 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}Django Todo{% endblock %}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="{% static 'todo/css/styles.css' %}">
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="{% url 'home' %}">Home</a> |
+        <a href="{% url 'todo:list' %}">Todos</a> |
+        <a href="{% url 'todo:add' %}">Add Todo</a>
+      </nav>
+    </header>
+
+    <main class="container">
+      {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+            <li class="message {{ message.tags }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+      <small>&copy; {{ now|date:"Y" }} Django Todo</small>
+    </footer>
+  </body>
+</html>

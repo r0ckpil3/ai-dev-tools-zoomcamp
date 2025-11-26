@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Todos - Django Todo{% endblock %}
+
+{% block content %}
+<div class="app-layout container">
+  <aside class="sidebar">
+    <div class="brand">
+      <h1>My Lists</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#">Inbox</a></li>
+        <li><a href="#">Today</a></li>
+        <li><a href="#">Upcoming</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <section class="main">
+    <div class="card">
+      <header style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <h2>Todos</h2>
+        <a class="btn-primary" href="{% url 'todo:add' %}">Add Todo</a>
+      </header>
+
+      <ul class="todo-list">
+        {% for t in todos %}
+          <li class="todo-item {% if t.completed %}completed{% endif %}">
+            <div style="display:flex;align-items:center;gap:12px">
+              <form method="post" action="{% url 'todo:toggle_complete' t.pk %}">
+                {% csrf_token %}
+                <input type="hidden" name="completed" value="{% if not t.completed %}1{% else %}0{% endif %}">
+                <input type="checkbox" onchange="this.form.submit()" {% if t.completed %}checked{% endif %} aria-label="Mark complete">
+              </form>
+              <div>
+                <a class="title" href="{% url 'todo:detail' t.pk %}">{{ t.title }}</a>
+                <div class="muted">{{ t.created_at|date:"M j, Y" }}
+                  {% if t.due_date %} • Due {{ t.due_date|date:"M j" }}{% endif %}
+                </div>
+              </div>
+            </div>
+            <div class="controls">
+              <a href="{% url 'todo:edit' t.pk %}">Edit</a>
+              <a href="{% url 'todo:delete' t.pk %}">Delete</a>
+            </div>
+          </li>
+        {% empty %}
+          <li class="todo-item card">No todos yet.</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+</div>
+{% endblock %}

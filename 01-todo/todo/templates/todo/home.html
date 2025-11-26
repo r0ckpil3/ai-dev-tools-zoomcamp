@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Django Todo{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="card">
+      <h1>Welcome to the Todo app</h1>
+      <p>Manage your tasks quickly.</p>
+      <p>
+        <a class="btn-primary" href="{% url 'todo:list' %}">View Todos</a>
+        &nbsp;|&nbsp;
+        <a href="{% url 'todo:add' %}">Add a Todo</a>
+      </p>
+    </div>
+  </div>
+{% endblock %}
